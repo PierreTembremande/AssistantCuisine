@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html>
+    <Headers> Good Cook </Headers>
+    <h1>Test</h1>
+
+    <p id="Test"></p>
+
+    <script>
+
+     function afficherFilms() {
+
+        fetch("https://pokeapi.co/api/v2/pokemon/1")
+        .then(response => response.json())
+        .then(response => alert(JSON.stringify(response)))
+        .catch(error => alert("Erreur : " + error));
+    }
+
+        
+    </script>
+
+    
+</html>
+
+
+  
