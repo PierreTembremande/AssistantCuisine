@@ -2,22 +2,89 @@
 
 <html>
     <Headers> Good Cook </Headers>
-    <h1>Test</h1>
 
-    <p id="Test"></p>
-
+    <div>
+        <div display = "flex">
+            <input id="searchbar" type="text" name="rechercheRecetteParNom" placeholder="Rechercher une recette">
+        </div>
+    
+        <div display = "flex">
+            <input id="searchbar" type="text" name="rechercheRecetteParIngredient" placeholder="Recherche par ingredient">
+        </div>
+    
+    </div>
+   
     <script>
 
-     function afficherFilms() {
+    async function recupRecette() {
+        try{
+            const reponse = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+            const recettes = await reponse.json();
+            //document.getElementById("contenu").textContent = recette.results[0].name;
+            // console.log(recettes.categories[0].strCategory);
 
-        fetch("https://pokeapi.co/api/v2/pokemon/1")
-        .then(response => response.json())
-        .then(response => alert(JSON.stringify(response)))
-        .catch(error => alert("Erreur : " + error));
-    }
+            const fragment = document.createDocumentFragment();
+            const table = fragment;
 
+            let tableau = table.appendChild(document.createElement("table"));
+            document.body.appendChild(tableau);
+
+            let hautTableau = table.appendChild(document.createElement("thead"));
+            tableau.appendChild(hautTableau);
+
+            let dansHautTableau= hautTableau.appendChild(document.createElement("tr"));
+            hautTableau.appendChild(dansHautTableau);
+            
+            for(let i =0 ; i<Object.keys(recettes.categories).length;i++){
+                dansHautTableau.appendChild(document.createElement("th"))
+                .setAttribute("id", "categorie" + i)
+                document.body.appendChild(fragment);
+                document.getElementById("categorie" + i).innerText = (recettes.categories[i].strCategory);
+            }
+
+            let corpTableau = tableau.appendChild(document.createElement("tbody"));
+            tableau.appendChild(corpTableau);
+
+            let dansCorpTableau = corpTableau.appendChild(document.createElement("tr"))
+            corpTableau.appendChild(dansCorpTableau);
+
+            for(let i =0 ; i<Object.keys(recettes.categories).length;i++){
+                dansCorpTableau.appendChild(document.createElement("td"))
+                .setAttribute("id", "recette" + i)
+                document.body.appendChild(fragment);
+                document.getElementById("recette" + i).innerText = (recettes.categories[i].strCategoryDescription);
+
+            }
+
+
+        }catch( error){
+            console.error("Erreur sur le fetch de l'API" ,error);
+        }
         
+    } 
+    
     </script>
+
+<body>
+    <script>recupRecette()</script>
+    <!-- <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nom de la recette</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr id = "contenu">
+                    <script>recupRecette()</script>
+                
+            </tr>
+        </tbody>
+    
+    </table> -->
+
+</body>
+
 
     
 </html>
