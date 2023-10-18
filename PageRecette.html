@@ -16,6 +16,7 @@
             document.getElementById("imageRecette").src = recette.meals[0].strMealThumb
 
             for (let i = 1; i < 20; i++) {
+                console.log(recette.meals[0].strIngredient)
                 if(recette.meals[0].strIngredient+i !=""){
                     document.body.append(document.createTextNode(recette.meals[0].strIngredient+i + " " +recette.meals[0].strMeasure & i))
                 }
