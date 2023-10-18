@@ -7,18 +7,27 @@
     async function recupRecette() {
         let position = window.location.href.indexOf('=');
         let nomRecette = window.location.href.substr(position + 1);
-        
+
         try {
             const reponse = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=" + nomRecette);
             const recette = await reponse.json();
+            const fragment = document.createDocumentFragment();
+            const liste = fragment;
 
             document.getElementById("titreRecette").innerHTML = recette.meals[0].strMeal
             document.getElementById("imageRecette").src = recette.meals[0].strMealThumb
 
-            for (let i = 1; i < 20; i++) {
-                console.log(recette.meals[0].strIngredient)
-                if(recette.meals[0].strIngredient+i !=""){
-                    document.body.append(document.createTextNode(recette.meals[0].strIngredient+i + " " +recette.meals[0].strMeasure & i))
+            for (let i = 1; i < 21; i++) {
+
+                let ingredient = "strIngredient" + i;
+                let quantite = "strMeasure" + i;
+
+                if (!(recette.meals[0][ingredient]==="") && !(recette.meals[0][quantite] === "")) {
+                    liste.appendChild(document.createElement("li"))
+                    .setAttribute("id", "preparation" + i)
+                    document.getElementById("preparation").appendChild(fragment)
+                    document.getElementById("preparation" + i).innerText = (recette.meals[0][quantite] + " " + recette.meals[0][ingredient]);
+
                 }
             }
         } catch (error) {
@@ -36,7 +45,16 @@
 
 <body>
     <h2 id="titreRecette"></h2>
-    <img id="imageRecette" width="400" height="300">
+
+    <div>
+        <img id="imageRecette" width="400" height="300">
+    </div>
+
+    <div>
+        <ul id="preparation">
+
+        </ul>
+    </div>
     <script>recupRecette()</script>
 </body>
 
