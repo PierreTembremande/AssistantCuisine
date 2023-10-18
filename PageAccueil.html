@@ -9,11 +9,15 @@
     <link href="Design.css" rel="stylesheet">
 
     <div display="flex">
-        <input id="rechercheRecetteParNom" type="text" name="rechercheRecetteParNom" placeholder="Rechercher une recette">
+        <form method="get" action="PageRecette.html">
+            <input id="rechercheRecetteParNom" type="search" name="rechercheRecetteParNom" placeholder="Rechercher une recette" >
+            <input id="buttonRechercheRecetteParNom" type="submit" value="Valider" >
+        </form>
     </div>
 
     <div display="flex">
-        <input id="rechercheRecetteParNom" type="text" name="rechercheRecetteParIngredient" placeholder="Recherche par ingredient">
+        <input id="rechercheRecetteParIngredient" type="search" name="rechercheRecetteParIngredient" placeholder="Recherche par ingredient">
+        <input id="buttonRechercheRecetteParIngredient" type="button" value="Valider">
     </div>
 
 
@@ -21,7 +25,7 @@
 
 <script>
 
-    async function recupRecette() {
+    async function recupCategorie() {
         try {
             const reponse = await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
             const categorieRecettes = await reponse.json();
@@ -70,7 +74,7 @@
 
 <body>
 
-    <script>recupRecette()</script>
+    <script>recupCategorie()</script>
 
 </body>
 

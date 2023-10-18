@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html>
+
+<script>
+
+    async function recupRecette() {
+        let position = window.location.href.indexOf('=');
+        let nomRecette = window.location.href.substr(position + 1);
+        
+        try {
+            const reponse = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=" + nomRecette);
+            const recette = await reponse.json();
+
+            document.getElementById("titreRecette").innerHTML = recette.meals[0].strMeal
+            document.getElementById("imageRecette").src = recette.meals[0].strMealThumb
+
+            for (let i = 1; i < 20; i++) {
+                if(recette.meals[0].strIngredient+i !=""){
+                    document.body.append(document.createTextNode(recette.meals[0].strIngredient+i + " " +recette.meals[0].strMeasure & i))
+                }
+            }
+        } catch (error) {
+            console.error("Erreur sur le fetch de l'API", error);
+        }
+    }
+</script>
+
+<head>
+    <title>Recette</title>
+    <meta charset="utf-8">
+    <link href="Design.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <h2 id="titreRecette"></h2>
+    <img id="imageRecette" width="400" height="300">
+    <script>recupRecette()</script>
+</body>
+
+</html>
