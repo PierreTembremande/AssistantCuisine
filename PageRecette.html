@@ -30,6 +30,9 @@
 
                 }
             }
+
+            document.getElementById("notice").innerHTML = recette.meals[0].strInstructions
+
         } catch (error) {
             console.error("Erreur sur le fetch de l'API", error);
         }
@@ -55,6 +58,8 @@
 
         </ul>
     </div>
+
+    <p id="notice"></p>
     <script>recupRecette()</script>
 </body>
 
